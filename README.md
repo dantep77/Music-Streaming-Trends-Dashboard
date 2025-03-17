@@ -1,5 +1,7 @@
 # Music-Streaming-Trends-Dashboard
 
+## Access the dashboard here
+https://music-streaming-trends-dashboard-rvvkrmbhwva88begevsu6s.streamlit.app/
 ## How to run locally
 Clone the repo:
 ```
