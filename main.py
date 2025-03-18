@@ -11,7 +11,7 @@ conn = engine.connect()
 st.title("Music Listener Insights")
 
 #Bar Chart: X-axis is age, Y-axis is count. Multiple bars per each age to represent different streaming platforms
-container2 = st.container()
+container2 = st.container(border=True)
 container2.header("Distribution of streaming platform by age")
 col1, col2 = container2.columns(2)
 ageRange = col1.slider("Select an age range to view", min_value=13, max_value=60, value=(13, 60))
@@ -29,12 +29,12 @@ if platforms:
         df_pivot = query_result.pivot(index = "Age", columns="Platform", values = "Count");
         container2.bar_chart(df_pivot, stack=False)
     else:
-        container2.write("No data found")
+        container2.error("No data found")
 else: 
-    container2.write("Select at least one platform")
+    container2.error("Select at least one platform")
 
 # Show Top 5 Artists by how many people they are the most played artist for
-container1 = st.container()
+container1 = st.container(border=True)
 container1.header("Top artists by country")
 country = container1.selectbox("Country", pd.read_sql_query("SELECT Country from data GROUP BY Country", conn))
 col1, col2 = container1.columns(2)
@@ -55,7 +55,7 @@ pieChart = px.pie(data_frame=query_result, names="Most Played Artist", values="C
 col2.plotly_chart(pieChart)
 
 # Show amount of listeners by country filtered by age
-container3 = st.container()
+container3 = st.container(border=True)
 container3.header("Listeners in each country by age")
 age = container3.slider("Select an age", 13, 60, step=1)
 if age:

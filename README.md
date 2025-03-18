@@ -1,5 +1,7 @@
 # Music-Streaming-Trends-Dashboard
 
+## Access the dashboard here
+https://music-streaming-trends-dashboard-rvvkrmbhwva88begevsu6s.streamlit.app/
 ## How to run locally
 Clone the repo:
 ```
@@ -7,7 +9,7 @@ git clone https://github.com/dantep77/Music-Streaming-Trends-Dashboard.git
 ```
 Run the following command
 ```
-pip install streamlit pandas sqlalchemy plotly
+pip install -r requirements.txt
 ```
 Run the StreamLit app:
 ```
