@@ -13,9 +13,10 @@ st.title("Music Listener Insights")
 #Bar Chart: X-axis is age, Y-axis is count. Multiple bars per each age to represent different streaming platforms
 container2 = st.container(border=True)
 container2.header("Distribution of streaming platform by age")
+container2.write("Select multiple platforms to see the percentage of each age that uses the selected platforms")
 col1, col2 = container2.columns(2)
 ageRange = col1.slider("Select an age range to view", min_value=13, max_value=60, value=(13, 60))
-platforms = col2.multiselect("Select platforms to view", pd.read_sql_query("SELECT DISTINCT [Streaming Platform] as Platform FROM data", conn), default="Spotify")
+platforms = col2.multiselect("Select platforms to view", pd.read_sql_query("SELECT DISTINCT [Streaming Platform] as Platform FROM data", conn), default=["Spotify", "Amazon Music"])
 if platforms:
     query2 = '''
     SELECT Age, [Streaming Platform] as Platform, Count([Streaming Platform]) as Count
@@ -26,8 +27,8 @@ if platforms:
 '''.format(",".join(["?"] * len(platforms)))
     query_result = pd.read_sql_query(query2, conn, params=(ageRange[0], ageRange[1], *platforms))
     if not query_result.empty:
-        df_pivot = query_result.pivot(index = "Age", columns="Platform", values = "Count");
-        container2.bar_chart(df_pivot, stack=False)
+        df_pivot = query_result.pivot(index = "Age", columns="Platform", values = "Count")
+        container2.bar_chart(df_pivot, stack="normalize")
     else:
         container2.error("No data found")
 else: 
